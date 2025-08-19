@@ -5,12 +5,13 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
+from decouple import config
 
 class GoogleIDTokenLogin(APIView):
     def post(self, request):
         token = request.data.get("access_token")
         try:
-            idinfo = id_token.verify_oauth2_token(token, requests.Request(), "306304482324-t6okpjml4j4r622160shhoivf9nc1ccc.apps.googleusercontent.com")
+            idinfo = id_token.verify_oauth2_token(token, requests.Request(), config('GOOGLE_CLIENT_ID'))
             # idinfo has 'email', 'sub', 'name', etc.
             email = idinfo['email']
             user, created = User.objects.get_or_create(email=email, defaults={'username': email.split('@')[0], 'first_name': idinfo.get('given_name', '')})
