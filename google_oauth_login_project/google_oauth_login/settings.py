@@ -46,6 +46,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
 ]
 
 SITE_ID = 1
@@ -53,6 +57,19 @@ SITE_ID = 1
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+REST_USE_JWT = True  # Use JWT instead of tokens
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://turfplants.onrender.com/"
 ]
 
 MIDDLEWARE = [
