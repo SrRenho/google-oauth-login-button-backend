@@ -69,8 +69,9 @@ REST_FRAMEWORK = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://turfplants.onrender.com/"
+    "https://turfplants.onrender.com"
 ]
+
 
 MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
@@ -82,6 +83,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+INSTALLED_APPS += ['corsheaders']
+MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
+
 
 ROOT_URLCONF = 'google_oauth_login.urls'
 
